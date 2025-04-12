@@ -35,6 +35,7 @@ def setup_training_loop_kwargs(
     snap       = None, # Snapshot interval: <int>, default = 50 ticks
     metrics    = None, # List of metric names: [], ['fid50k_full'] (default), ...
     seed       = None, # Random seed: <int>, default = 0
+    kimg_per_tick = None, # How many images to process before taking a snapshot
 
     # Dataset.
     data       = None, # Training dataset (required): <path>
@@ -97,6 +98,10 @@ def setup_training_loop_kwargs(
         seed = 0
     assert isinstance(seed, int)
     args.random_seed = seed
+
+    if kimg_per_tick is not None:
+        assert isinstance(kimg_per_tick, int)
+        args.kimg_per_tick = kimg_per_tick
 
     # -----------------------------------
     # Dataset: data, cond, subset, mirror
